@@ -11,14 +11,30 @@ def check_prime(n:int):
 				return False
 	return True
 
-def new_prime(n:int):
-	print(check_prime(6*n+1))
-	print(check_prime(6*n-1))
-	return [6*n+1,6*n-1]
+def new_prime(n:int,xrange:int):
+	list = []
+	x = n
+	for i in range(xrange):
+		x = 6*x+1
+		list.append(x)
+	x = n
+	for i in range(xrange):
+		x = 6*x-1
+		list.append(x)
+	return list
 
-for i in range(39):
-	i += 1
-	print(i)
-	n = i*i+i+41
-	print(check_prime(n))
-	new_prime(n)
+def find_percentage(xrange:int):
+	list = []
+	for i in range(39):
+		i += 1
+		n = i*i+i+41
+		list.append(check_prime(n))
+		for item in new_prime(n,xrange):
+			list.append(check_prime(item))
+	return list.count(True) / len(list) * 100
+	
+def main():
+	print(f"The formula gets a prime number {find_percentage(5)}% of the time.")
+
+if __name__ == "__main__":
+    main()
