@@ -1,11 +1,10 @@
 #include "timer.h"
 
-Timer::Timer() {
-	this->start_var = std::chrono::system_clock::now();
-}
 void Timer::start() {
-	this->start_var = std::chrono::system_clock::now();
+  this->start_var = std::chrono::high_resolution_clock::now();
 }
-double Timer::get() {
-	return std::chrono::duration<double>(std::chrono::system_clock::now() - this->start_var).count();
+
+float Timer::get() {
+  std::chrono::duration<float> duration = std::chrono::high_resolution_clock::now() - this->start_var;
+  return duration.count();
 }
