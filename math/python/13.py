@@ -4,12 +4,10 @@ def check(n:int):
 		n = int(n)
 	except:
 		raise Exception("Needs to be an integer!")
-	if "13" not in str(n):
-		return False
-	if str(bin(n)).count('1') % 2 != 0:
+	if "13" not in str(n) or str(bin(n)).count('1') % 2 != 0:
 		return False
 	return True
-	
+
 def main():
 	n = 0
 	f = 1000000
