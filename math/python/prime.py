@@ -1,18 +1,10 @@
-# This is supposed to calculate a list of prime numbers
-# but it turns out there isn't a consistent formula for finding new ones
-# so this script is broken
-
 def check_prime(n:int):
-	for i in range(n + 1):
-		if i == 0:
-			continue
-		if n % i == 0:
-			if i not in (1,n):
-				return False
-	return True
-
+	return len([ i for i in range(1,n + 1) if n % i == 0 ]) == 2
+	
 def new_prime(n:int,xrange:int):
 	list = []
+	if not check_prime(n):
+		return list
 	x = n
 	for i in range(xrange):
 		x = 6*x+1
@@ -23,18 +15,20 @@ def new_prime(n:int,xrange:int):
 		list.append(x)
 	return list
 
-def find_percentage(xrange:int):
+def find_primes(irange:int,xrange:int):
 	list = []
-	for i in range(39):
-		i += 1
+	if irange > 40:
+		irange = 40
+	for i in range(irange):
 		n = i*i+i+41
-		list.append(check_prime(n))
-		for item in new_prime(n,xrange):
-			list.append(check_prime(item))
-	return list.count(True) / len(list) * 100
-	
+		list.append(n)
+		list.extend(new_prime(n,xrange))
+	return [ i for i in list if check_prime(i) ]
+
 def main():
-	print(f"The formula gets a prime number {find_percentage(5)}% of the time.")
+	recursion_depth = 1
+	list = find_primes(40,recursion_depth)
+	print(f"The formula has found {len(list)} prime numbers with a recursion depth of {recursion_depth}.")
 
 if __name__ == "__main__":
     main()
